@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Resume.Models;
 
 namespace Resume.Controllers
 {
