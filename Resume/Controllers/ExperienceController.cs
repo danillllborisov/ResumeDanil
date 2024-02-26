@@ -5,7 +5,7 @@ using Resume.Providers;
 namespace Resume.Controllers
 {
     [ApiController]
-    [Route("check")]
+    [Route("experience")]
     public class ExperienceController : ControllerBase
     {
         private readonly IExperienceProvider _experienceProvider;

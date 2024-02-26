@@ -16,6 +16,7 @@ namespace Resume
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddSingleton<IExperienceProvider, ExperienceProvider>();
+            builder.Services.AddSingleton<IPersonProvider,PersonProvider>();
 
             var app = builder.Build();
 
