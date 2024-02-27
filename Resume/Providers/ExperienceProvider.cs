@@ -1,4 +1,5 @@
-﻿using Resume.Models;
+﻿using Microsoft.Extensions.Configuration;
+using Resume.Models;
 
 namespace Resume.Providers
 {
@@ -8,14 +9,18 @@ namespace Resume.Providers
     }
     public class ExperienceProvider : IExperienceProvider
     {
-       public IEnumerable<ExperienceModel> GetFullExperience()
+        private readonly IConfiguration _configuration;
+        public ExperienceProvider(IConfiguration configuration)
         {
-            var re = new List<ExperienceModel>();
-           // re.Add(new ExperienceModel { Role = "role", CompanyName = "Name" , StartDate = DateOnly.MaxValue, EndDate = DateOnly.MinValue, Location = "Location", Accomplishments = new List<string> { "acc1", "acc2", "acc3" }   });
-           // re.Add(new ExperienceModel { Role = "role", CompanyName = "Name", StartDate = DateOnly.MaxValue, EndDate = DateOnly.MinValue, Location = "Location", Accomplishments = new List<string> { "acc1", "acc2", "acc3" } });
+            _configuration = configuration;
+        }
 
+        public IEnumerable<ExperienceModel> GetFullExperience()
+        {
 
-            return re;
+            List<ExperienceModel> jobDetails = _configuration.GetSection("JobDetails").Get<List<ExperienceModel>>();
+
+            return jobDetails;
         }
     }
 }

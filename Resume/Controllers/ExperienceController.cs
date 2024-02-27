@@ -9,8 +9,6 @@ namespace Resume.Controllers
     public class ExperienceController : ControllerBase
     {
         private readonly IExperienceProvider _experienceProvider;
-
-        
         public ExperienceController(IExperienceProvider experienceProvider)
         {
             _experienceProvider = experienceProvider;
@@ -21,6 +19,5 @@ namespace Resume.Controllers
         {
             return _experienceProvider.GetFullExperience();
         }
-
     }
 }
