@@ -1,4 +1,5 @@
-﻿using Resume.Models;
+﻿using Microsoft.AspNetCore.Http;
+using Resume.Models;
 
 namespace Resume.Providers
 {
@@ -8,16 +9,45 @@ namespace Resume.Providers
     }
     public class PersonProvider : IPersonProvider
     {
+        private readonly IConfiguration _configuration;
+        public PersonProvider(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public IEnumerable<PersonModel> GetFullInfo()
         {
-            var re = new List<PersonModel>();
-            var exp = new Education { CollegeName = "Georgian College", Diploma = "Advanced Diploma", StartDate = DateOnly.MaxValue, EndDate = DateOnly.MinValue };
-            re.Add(new PersonModel { FullName = "Danil Borisov", Occupation = "Sasa", Description = "asasqww", ShortDescription = "sasassas", Education = exp});
-           
+            var person = new List<PersonModel>();
 
+            var name = _configuration["PersonInfo:Name"];
+            var occupation = _configuration["PersonInfo:Occupation"];
+            var desc = _configuration["PersonInfo:Desc"];
+            var shortDesc = _configuration["PersonInfo:ShortDesc"];
+
+            var collegeName = _configuration["Education:CollegeName"];
+            var diploma = _configuration["Education:Diploma"];
             
+            var startDate = _configuration["Education:StartDate"];
+            var endDate = _configuration["Education:EndDate"];
 
-            return re;
+            var education = new Education 
+            {
+                CollegeName = collegeName, 
+                Diploma = diploma, 
+                StartDate = startDate, 
+                EndDate = endDate 
+            };
+
+            person.Add(new PersonModel 
+            {
+                FullName = name, 
+                Occupation = occupation, 
+                Description = desc, 
+                ShortDescription = shortDesc, 
+                Education = education 
+            });
+        
+            return person;
         }
     }
 }
